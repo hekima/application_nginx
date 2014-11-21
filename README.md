@@ -32,6 +32,7 @@ Note that the application repository will still be checked out even if this is t
 - set\_host\_header: Force nginx to set the Host, X-Real-IP and X-Forwarded-For headers. Defaults to false.
 - port: the port nginx will bind. Defaults to 80
 - application_port: the port the application server runs on. Defaults to 8000
+- application_prefix: the prefix to access the application server endpoints. Defaults to '/'
 - static_files: a Hash mapping URLs to files. Defaults to an empty Hash
 - ssl: true/false that we should use SSL
 - ssl_certificate: The SSL public certificate full path file name, defaults to #{node.fqdn}.cert if ssl true, append any chained CA certificates to the end of this file.
