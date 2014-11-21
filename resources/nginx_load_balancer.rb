@@ -28,6 +28,7 @@ attribute :set_host_header, :kind_of => [TrueClass, FalseClass], :default => fal
 attribute :port, :kind_of => Integer, :default => 80
 attribute :application_port, :kind_of => Integer, :default => 8000
 attribute :application_socket, :kind_of => [Array, String, NilClass], :default => nil
+attribute :application_prefix, :kind_of => String, :default => '/'
 attribute :static_files, :kind_of => Hash, :default => {}
 attribute :ssl, :kind_of => [ TrueClass, FalseClass ], :default => false
 attribute :ssl_certificate, :kind_of => String, :default => "#{node['fqdn']}.crt"
