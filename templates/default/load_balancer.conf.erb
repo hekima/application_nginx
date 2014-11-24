@@ -20,10 +20,11 @@ server {
   <% @resource.static_files.each do |url, path| %>
   location <%= url %> {
     alias <%= path %>;
+    index index.html index.htm;
   }
   <% end %>
   location <%= @resource.application_prefix %> {
-    proxy_pass http://<%= @resource.application.name %>;
+    proxy_pass http://<%= @resource.application.name %>/;
     <% if @resource.set_host_header %>
     proxy_set_header   Host             $host;
     proxy_set_header   X-Real-IP        $remote_addr;
