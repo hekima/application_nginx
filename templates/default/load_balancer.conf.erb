@@ -22,7 +22,7 @@ server {
     alias <%= path %>;
   }
   <% end %>
-  location <%= @resource.application.prefix %> {
+  location <%= @resource.application_prefix %> {
     proxy_pass http://<%= @resource.application.name %>;
     <% if @resource.set_host_header %>
     proxy_set_header   Host             $host;
