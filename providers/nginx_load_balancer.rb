@@ -20,19 +20,6 @@
 
 include Chef::Mixin::LanguageIncludeRecipe
 
-protected
-
-def process_hosts(nodes)
-  nodes.map do |n|
-    if n.is_a?(String)
-      n
-    elsif n.attribute?('cloud')
-      n['cloud']['local_ipv4']
-    else
-      n['ipaddress']
-    end
-  end
-end
 
 action :before_compile do
 
@@ -49,6 +36,9 @@ action :before_compile do
 end
 
 action :before_deploy do
+  hosts = new_resource.hosts || new_resource.find_matching_role(new_resource.application_server_role, false)
+  hosts = hosts.map{ |n| n.is_a?(String) ? n : (n.attribute?('cloud') ? n['cloud']['local_ipv4'] : n['ipaddress'])}
+
 
   template "#{node['nginx']['dir']}/sites-available/#{new_resource.application.name}.conf" do
     source new_resource.template ? new_resource.template : "load_balancer.conf.erb"
@@ -57,7 +47,7 @@ action :before_deploy do
     group "root"
     mode "644"
     variables(:resource => new_resource,
-              :hosts => process_hosts(new_resource.hosts || new_resource.find_matching_role(new_resource.application_server_role, false)),
+              :hosts => hosts,
               :application_socket => Array(new_resource.application_socket)
              )
     notifies :reload, resources(:service => 'nginx')
