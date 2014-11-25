@@ -20,6 +20,20 @@
 
 include Chef::Mixin::LanguageIncludeRecipe
 
+protected
+
+def process_hosts(nodes)
+  nodes.map do |n|
+    if n.is_a?(String)
+      n
+    elsif n.attribute?('cloud')
+      n['cloud']['local_ipv4']
+    else
+      n['ipaddress']
+    end
+  end
+end
+
 action :before_compile do
 
   include_recipe 'nginx'
@@ -67,19 +81,4 @@ action :before_restart do
 end
 
 action :after_restart do
-end
-
-
-protected
-
-def process_hosts(nodes)
-  nodes.map do |n|
-    if n.is_a?(String)
-      n
-    elsif n.attribute?('cloud')
-      n['cloud']['local_ipv4']
-    else
-      n['ipaddress']
-    end
-  end
 end
