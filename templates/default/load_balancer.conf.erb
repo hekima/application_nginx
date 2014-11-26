@@ -24,6 +24,11 @@ listen <%= @resource.ssl ? @resource.ssl_port : @resource.port %><%= @resource.s
   ssl_certificate <%= @resource.ssl_certificate %>;
   ssl_certificate_key <%= @resource.ssl_certificate_key %>;
   <% end %>
+  <% if @resource.ssl_redirect %>
+  if ($http_x_forwarded_proto = "http") {
+    return 301 https://<%= @resource.server_name.is_a?(Array) ? @resource.server_name.join(' ') : @resource.server_name %>$request_uri;
+  }
+  <% end %>
   <% @resource.static_files.each do |url, path| %>
   location <%= url %> {
     alias <%= path %>/;
