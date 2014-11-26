@@ -36,6 +36,7 @@ Note that the application repository will still be checked out even if this is t
 - application_prefix: the prefix to access the application server endpoints. Defaults to '/'
 - static_files: a Hash mapping URLs to files. Defaults to an empty Hash
 - ssl: true/false that we should use SSL. If SSL is on, we will redirect requests on the non-SSL port to the SSL one.
+- ssl_redirect: true/false that we should redirect to a SSL based request.
 - ssl_certificate: The SSL public certificate full path file name, defaults to #{node.fqdn}.cert if ssl true, append any chained CA certificates to the end of this file.
 - ssl_certificate_key: The SSL private certificate full path file name, defaults to #{node.fqdn}.key if ssl true
 - ssl_port: the SSL port nginx will bind. Defaults to 443
