@@ -35,7 +35,7 @@ listen <%= @resource.ssl ? @resource.ssl_port : @resource.port %><%= @resource.s
     index index.html index.htm;
   }
   <% end %>
-  location <%= @resource.application_prefix %> {
+  location <%= @resource.application_prefix %>/ {
     proxy_pass http://<%= @resource.application.name %>/;
     <% if @resource.set_host_header %>
     proxy_set_header   Host             $host;
@@ -43,7 +43,7 @@ listen <%= @resource.ssl ? @resource.ssl_port : @resource.port %><%= @resource.s
     proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
     <% end %>
   }
-  location <%= @resource.application_prefix %>/ {
+  location <%= @resource.application_prefix %> {
     proxy_pass http://<%= @resource.application.name %>/;
     <% if @resource.set_host_header %>
     proxy_set_header   Host             $host;
