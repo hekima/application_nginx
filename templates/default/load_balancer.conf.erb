@@ -33,6 +33,9 @@ listen <%= @resource.ssl ? @resource.ssl_port : @resource.port %><%= @resource.s
   location <%= url %> {
     alias <%= path %>/;
     index index.html index.htm;
+
+    proxy_intercept_errors on;
+    error_page 404 https://zahpee.com;
   }
   <% end %>
   location <%= @resource.application_prefix %>/ {
