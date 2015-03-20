@@ -18,6 +18,12 @@ server {
 <% end %>
 
 server {
+listen 80;
+  server_name www.uimbi.com uimbi.com www.uimbi.com.br uimbi.com.br;
+  return 301  http://offers.zahpee.com/painel-eventos-redes-sociais;
+}
+
+server {
 listen <%= @resource.ssl ? @resource.ssl_port : @resource.port %><%= @resource.ssl ? ' ssl' : '' %>;
   server_name <%= @resource.server_name.is_a?(Array) ? @resource.server_name.join(' ') : @resource.server_name %>;
   <% if @resource.ssl %>
