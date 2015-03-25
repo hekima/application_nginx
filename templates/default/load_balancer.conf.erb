@@ -57,8 +57,7 @@ listen <%= @resource.ssl ? @resource.ssl_port : @resource.port %><%= @resource.s
 }
 
 server {
-listen 80;
-  server_name uimbi.com .uimbi.com uimbi.com.br .uimbi.com.br;
-  return 301 http://offers.zahpee.com/painel-eventos-redes-sociais;
+  listen 80;
+  server_name uimbi.com www.uimbi.com uimbi.com.br www.uimbi.com.br;
+  rewrite      ^ http://offers.zahpee.com/painel-eventos-redes-sociais?;
 }
-
